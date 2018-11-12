@@ -2,14 +2,14 @@
 
 **INSTITUTO TECNOLÓGICO DE LEÓN**
 
-Integrantes:
-				- Espinoza Amaro Maria de los Angeles.
-				- Godinez Guerrero Sandra Luz.
-				- Santos Salas Abril Alejandra.
-	Contacto
-				angeles.espinoza.amaro@gmail.com
-        sandy.goboo@gmail.com
-				alejandra.santos.97@hotmail.com
+Integrantes:<br>
+				- Espinoza Amaro Maria de los Angeles.<br>
+				- Godinez Guerrero Sandra Luz.<br>
+				- Santos Salas Abril Alejandra.<br>
+	Contacto<br>
+				angeles.espinoza.amaro@gmail.com<br>
+        			sandy.goboo@gmail.com<br>
+				alejandra.santos.97@hotmail.com<br>
 				
         
 	Sistemas Programables.
