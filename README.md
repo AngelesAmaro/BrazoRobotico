@@ -5,14 +5,15 @@
 Integrantes:<br>
 				- Espinoza Amaro Maria de los Angeles.<br>
 				- Godinez Guerrero Sandra Luz.<br>
-				- Santos Salas Abril Alejandra.<br>
+				- Santos Salas Abril Alejandra.<br><br>
 	Contacto<br>
 				angeles.espinoza.amaro@gmail.com<br>
         			sandy.goboo@gmail.com<br>
 				alejandra.santos.97@hotmail.com<br><br>
-				
+						
         
-	Sistemas Programables.<br>
+	
+   Sistemas Programables.<br>
 				-Ing. Carlos Rafael Levy Rojas.<br>
         
 Práctica 4 Brazo Robotico de 5 ejes<br>
