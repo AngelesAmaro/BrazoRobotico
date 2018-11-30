@@ -17,9 +17,9 @@
 #define ledVerde 6
 #define ledRojo 7
 #define ledNaranja 5
-#define interrupcion 12
+#define interrupcion 2
 //Crear el objeto LCD con los números correspondientes (rs, en, d4, d5, d6, d7)
-LiquidCrystal lcd(4, 28, 2, 22, 24, 26);
+LiquidCrystal lcd(30, 28, 32, 22, 24, 26);
 
 //************************************************ VARIABLES **********************************************************************************************
 //Se crea una variable con el valor de la posición de memoria
@@ -44,9 +44,9 @@ void setup() {
   cont = 0;
   
   //Instanciar servos
-  servos[0].attach(23); //servoPinza
-  servos[1].attach(32); //servoMuñeca
-  servos[2].attach(30); //servoCodo
+  servos[0].attach(12); //servoPinza
+  servos[1].attach(3); //servoMuñeca
+  servos[2].attach(4); //servoCodo
   servos[3].attach(13); //servoHombro
 
   pinMode(ledVerde, OUTPUT);
@@ -218,7 +218,7 @@ void Emergencia() {
   delay(100);
 }
 
-//*****************************************************************METODO PARA MOVER EL MOTOR A PASOS HACIA LA DERECHA ********************************************
+//*************************************METODO PARA MOVER EL MOTOR A PASOS HACIA LA DERECHA ********************************************
 void paso_derecha() {        
   digitalWrite(11, LOW);
   digitalWrite(10, LOW);
