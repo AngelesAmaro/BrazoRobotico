@@ -33,6 +33,7 @@ int numero_pasos = 0; //numero de pasos dados
 
 Servo  servos [4]; //Arreglo de microServos
 
+//Variables booleanas
 boolean abortar = false;
 boolean problema = false;
 boolean mover = false;
@@ -54,6 +55,7 @@ void setup() {
   pinMode(ledNaranja, OUTPUT);
   pinMode(interrupcion, INPUT);
 
+ //Motor a pasos
   pinMode(8, OUTPUT);     //conectar a IN1
   pinMode(9, OUTPUT);     //conectar a IN2
   pinMode(10, OUTPUT);    //conectar a IN3
@@ -63,7 +65,9 @@ void setup() {
   lcd.begin(16, 2);
   lcd.setCursor(0, 0);
   lcd.print("BRAZO ROBOTICO  ");
+  //Llamar al metodo para cargar la memoria EEPROM
   cargarEEPROM();
+  //Interrupción del boton de paro
   attachInterrupt(digitalPinToInterrupt(interrupcion), interrup, RISING);
   Serial.begin(9600);
 }
@@ -74,16 +78,20 @@ void loop() {
   digitalWrite(ledNaranja, LOW);
   digitalWrite(ledVerde, HIGH);
 
-  if (Serial.available()) { //Checar que aun hay información que leer en el Serial
+  if (Serial.available()) { 
     delay(200);
+    //Verificar que hay datos en el Serial
     while (Serial.available() > 0) {
+      //Obtener los datos que estan antes de una coma
       String texto = Serial.readStringUntil(',');
+      //Convertir el dato a entero
       int data = texto.toInt();
 
+      //Colocar en el arreglo la variable data
       posiciones[cont] = data;
       cont++;
 
-      if (data == 222) {
+      if (data == 800) {
         registro = true;
         cont = 0;
       }
@@ -103,12 +111,12 @@ void loop() {
           delay(1000);
         }
       }
-
-      if (data == 666) { //identificador para ejecutar los movimientos cargados
+      //Si se recibe el numero 400 entonces se activaran las acciones de paro
+      if (data == 400) { 
         abortar = true;
       }
 
-      if (data == 111) { //identificador para hacer una rutina de pasos
+      if (data == 700) { //identificador para hacer una rutina de pasos
         mover = true;
 
       }
@@ -216,6 +224,28 @@ void Emergencia() {
   delay(100);
   servos[3].write(130);
   delay(100);
+}
+
+//*******************************METODO PARA GUARDAR EN LA MEMORIA EEPROM ***********************************
+void guardaEEPROM() {
+  //    for(int i=0; i <= sizeof(posiciones);i++){ //guardar en la memoria EEPROM las posiciones del brazo robótico
+  //     // EEPROM.put(direccionMemoria,posiciones[i]);
+  //     EEPROM.update(direccionMemoria,posiciones[i]);
+  //     direccionMemoria++;
+  //    }
+  //    direccionMemoria=0;//reiniciamos índice
+}
+
+//***********************************METODO PARA CARGAR LO QUE HAY EN LA MEMORIA EEPROM**************************
+void cargarEEPROM() {
+  //
+  //   direccionMemoria = sizeof(posiciones);
+  //    for(int i = direccion-1 ;i >= 0 ;i--){
+  //       EEPROM.get(direccionMemoria,dato);
+  //      posiciones[i]=dato;
+  //  }
+  //
+
 }
 
 //*************************************METODO PARA MOVER EL MOTOR A PASOS HACIA LA DERECHA ********************************************
@@ -351,24 +381,3 @@ void tomarObjeto() {
   mover = false;
 }
 
-//*******************************METODO PARA GUARDAR EN LA MEMORIA EEPROM ***********************************
-void guardaEEPROM() {
-  //    for(int i=0; i <= sizeof(posiciones);i++){ //guardar en la memoria EEPROM las posiciones del brazo robótico
-  //     // EEPROM.put(direccionMemoria,posiciones[i]);
-  //     EEPROM.update(direccionMemoria,posiciones[i]);
-  //     direccionMemoria++;
-  //    }
-  //    direccionMemoria=0;//reiniciamos índice
-}
-
-//***********************************METODO PARA CARGAR LO QUE HAY EN LA MEMORIA EEPROM**************************
-void cargarEEPROM() {
-  //
-  //   direccionMemoria = sizeof(posiciones);
-  //    for(int i = direccion-1 ;i >= 0 ;i--){
-  //       EEPROM.get(direccionMemoria,dato);
-  //      posiciones[i]=dato;
-  //  }
-  //
-
-}
