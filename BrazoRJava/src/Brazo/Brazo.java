@@ -1,6 +1,8 @@
 package Brazo;
 
 //Librerias
+import Beans.DatosBrazo;
+import Beans.DatosRutina;
 import com.panamahitek.ArduinoException;
 import com.panamahitek.PanamaHitek_Arduino;
 import java.awt.Color;
@@ -31,90 +33,43 @@ public class Brazo extends JFrame{
      PanamaHitek_Arduino ino;
      
     //Componentes de la interfaz
-    private JButton btnGuardarPinza,btnGuardarMuneca,btnGuardarCodo,btnGuardarHombro,btnGuardarBase,btnRutina,btnBorrar,btnParo;
+    private JButton btnGuardar,btnRutinaDefault;
+    private JButton btnRutina,btnCrearRutina,btnParo;
     private JLabel lblTitulo,lblPinza,lblMuneca,lblCodo,lblHombro,lblBase,lblImagen,lblGrados;
     private JSpinner spPinza,spMuneca,spCodo,spHombro,spBase; 
     
+    int posicion = 0; //contador de posiciones
+    int rutina = 0; // contador de rutinas
+    DatosBrazo b = new DatosBrazo();
     public Brazo(){
         super("BRAZO ROBOTICO");
         setLayout(null);
         getContentPane().setBackground(new Color(164,211,238));
         initComponents();
         
-        //Clase anonima para las acciones de btnGuardarBase
-        btnGuardarBase.addActionListener(new ActionListener(){
+        //Clase anonima para las acciones de btnGuardar en el que se guardan las posiciones de los servos
+        btnGuardar.addActionListener(new ActionListener(){
           
             public void actionPerformed(ActionEvent e) {
-              String data =spBase.getValue().toString();
-              System.out.println(data);
-               try {
-                    ino.sendData(data);
-                } catch (ArduinoException | SerialPortException ex) {
-                    Logger.getLogger(Brazo.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                 
-            }            
-        });
-        
-        //Clase anonima para las acciones de btnGuardarHombro
-        btnGuardarHombro.addActionListener(new ActionListener(){
-          
-            public void actionPerformed(ActionEvent e) {
-               String data =spHombro.getValue().toString();
-                System.out.println(data);
-                data = data + "H";
-               try {
-                    ino.sendData(data);
-                } catch (ArduinoException | SerialPortException ex) {
-                    Logger.getLogger(Brazo.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                 
-            }       
-                       
-        });
-        
-        //Clase anonima para las acciones de btnGuardarCodo
-        btnGuardarCodo.addActionListener(new ActionListener(){
-          
-            public void actionPerformed(ActionEvent e) {
-               String data =spCodo.getValue().toString();
-               System.out.println(data);
-               try {
-                    ino.sendData(data);
-                } catch (ArduinoException | SerialPortException ex) {
-                    Logger.getLogger(Brazo.class.getName()).log(Level.SEVERE, null, ex);
-                }
-              
-            }            
-        }); 
-        
-         //Clase anonima para las acciones de btnGuardarMuneca
-        btnGuardarMuneca.addActionListener(new ActionListener(){
-          
-            public void actionPerformed(ActionEvent e) {
-               String data =spMuneca.getValue().toString();
-               System.out.println(data);
-               try {
-                    ino.sendData(data);
-                } catch (ArduinoException | SerialPortException ex) {
-                    Logger.getLogger(Brazo.class.getName()).log(Level.SEVERE, null, ex);
-                }
                
-            }            
-        });
-        
-         //Clase anonima para las acciones de btnGuardarPinza
-        btnGuardarPinza.addActionListener(new ActionListener(){
-          
-            public void actionPerformed(ActionEvent e) {
-               String data =spPinza.getValue().toString();
-               System.out.println(data);
+                posicion++;
+                b.setBase((int) spBase.getValue());
+                b.setHombro((int) spHombro.getValue());
+                b.setCodo((int) spCodo.getValue());
+                b.setMuneca((int) spMuneca.getValue());
+                b.setPinza((int) spPinza.getValue());
+                b.setDescripcion("Posicion" + posicion);
+                
+                
+                String data =spPinza.getValue().toString()+","+spMuneca.getValue().toString()+","+spCodo.getValue().toString()+","+spHombro.getValue().toString()+","+spBase.getValue().toString();
+              System.out.println(data);
+              //Mandamos los numeros de cada JSpinner concatenados
                try {
                     ino.sendData(data);
                 } catch (ArduinoException | SerialPortException ex) {
                     Logger.getLogger(Brazo.class.getName()).log(Level.SEVERE, null, ex);
                 }
-             
+                 
             }            
         });
         
@@ -124,7 +79,7 @@ public class Brazo extends JFrame{
             public void actionPerformed(ActionEvent e) {
                
                try {
-                   //Enviamos el numero 365 ya que no es posible que se mande por medio de los spinners puesto que el # mayor es 360
+                   //Enviamos el numero 400 ya que no es posible que se mande por medio de los spinners puesto que el # mayor es 360
                     ino.sendData("400");
                 } catch (ArduinoException | SerialPortException ex) {
                     Logger.getLogger(Brazo.class.getName()).log(Level.SEVERE, null, ex);
@@ -148,14 +103,28 @@ public class Brazo extends JFrame{
             }            
         });
        
-       //Clase anonima para las acciones de btnBorrar
-       btnBorrar.addActionListener(new ActionListener(){
+       //Clase anonima para las acciones de btnCrearRutina
+       btnCrearRutina.addActionListener(new ActionListener(){
+          
+            public void actionPerformed(ActionEvent e) {
+               
+                DatosRutina r = new DatosRutina();// se crea objeto tipo rutina
+                r.setRutina(String.valueOf(b.getHombro()) + ",");
+                r.setRutina(String.valueOf(b.getBase()) + ",");
+                r.setRutina(String.valueOf(b.getCodo()) + ",");
+                r.setRutina(String.valueOf(b.getMuneca()) + ",");
+                r.setRutina(String.valueOf(b.getPinza()));
+                r.setDescripcion("Rutina" + rutina);
+            }            
+        });
+       //Clase anonima para las acciones de btnRutinaDefault para ejecutar la rutina guardada predeterminada
+       btnRutinaDefault.addActionListener(new ActionListener(){
           
             public void actionPerformed(ActionEvent e) {
                
                try {
-                   //Enviamos el numero 500 ya que no es posible que se mande por medio de los spinners puesto que el # mayor es 360
-                    ino.sendData("600");
+                   //Enviamos el numero 700 ya que no es posible que se mande por medio de los spinners puesto que el # mayor es 360
+                    ino.sendData("700");
                 } catch (ArduinoException | SerialPortException ex) {
                     Logger.getLogger(Brazo.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -170,7 +139,7 @@ public class Brazo extends JFrame{
         
         ino = new PanamaHitek_Arduino();
         try {
-            ino.arduinoTX("COM7", 9600);
+            ino.arduinoTX("COM5", 9600);
         } catch (ArduinoException ex) {
             Logger.getLogger(Brazo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -195,19 +164,29 @@ public class Brazo extends JFrame{
         add(lblGrados);
         
     //Boton para reproducir la rutina almacenada
-        btnRutina = new JButton("Reproducir rutina");
+        btnRutina = new JButton("Ejecutar Rutina");
         btnRutina.setBounds(800,800,150,40);
         add(btnRutina);
         
-    //Boton para borrar lo que se encuentre guardado en la memoria    
-        btnBorrar = new JButton("Borrar");
-        btnBorrar.setBounds(1000,800,100,40);
-        add(btnBorrar);
+    //Boton para crear rutina    
+        btnCrearRutina = new JButton("Crear");
+        btnCrearRutina.setBounds(1000,800,100,40);
+        add(btnCrearRutina);
         
     //Boton para detener el brazo    
-        btnParo = new JButton("Detener");
+        btnParo = new JButton("Abortar");
         btnParo.setBounds(1150,800,100,40);
         add(btnParo);
+        
+    //Boton para reproducir rutina por default
+        btnRutinaDefault = new JButton("Rutina Default");
+        btnRutinaDefault.setBounds(200,800,150,40);
+        add(btnRutinaDefault);
+    
+    //Boton para guardar los movimientos
+     btnGuardar = new JButton("Guardar");
+        btnGuardar.setBounds(450,650,100,40);
+        add(btnGuardar);
         
     //Acciones a la base del brazo
         lblBase = new JLabel("Base");
@@ -219,10 +198,6 @@ public class Brazo extends JFrame{
         spBase.setBounds(300,250,100,40);
         add(spBase);
         
-        btnGuardarBase = new JButton("Guardar");
-        btnGuardarBase.setBounds(450,250,100,40);
-        add(btnGuardarBase);
-        
         
     //Acciones  del hombro del brazo
         lblHombro = new JLabel("Hombro");
@@ -233,10 +208,7 @@ public class Brazo extends JFrame{
         spHombro = new JSpinner();
         spHombro.setBounds(300,350,100,40);
         add(spHombro);
-        
-        btnGuardarHombro = new JButton("Guardar");
-        btnGuardarHombro.setBounds(450,350,100,40);
-        add(btnGuardarHombro);
+
         
     //Acciones  del hombro del brazo
         lblCodo = new JLabel("Codo");
@@ -248,9 +220,6 @@ public class Brazo extends JFrame{
         spCodo.setBounds(300,450,100,40);
         add(spCodo);
         
-        btnGuardarCodo = new JButton("Guardar");
-        btnGuardarCodo.setBounds(450,450,100,40);
-        add(btnGuardarCodo);
     
     //Acciones  de la muñeca del brazo
         lblMuneca = new JLabel("Muñeca");
@@ -261,10 +230,7 @@ public class Brazo extends JFrame{
         spMuneca = new JSpinner();
         spMuneca.setBounds(300,550,100,40);
         add(spMuneca);
-        
-        btnGuardarMuneca = new JButton("Guardar");
-        btnGuardarMuneca.setBounds(450,550,100,40);
-        add(btnGuardarMuneca);
+
         
     //Acciones  de las Pinzas del brazo
         lblPinza = new JLabel("Pinza");
@@ -276,9 +242,6 @@ public class Brazo extends JFrame{
         spPinza.setBounds(300,650,100,40);
         add(spPinza);
         
-        btnGuardarPinza = new JButton("Guardar");
-        btnGuardarPinza.setBounds(450,650,100,40);
-        add(btnGuardarPinza);
         
     //Modelo para los spinners del motor a pasos
     //El JSpinner solo podra tomar valores de 0 a 360
