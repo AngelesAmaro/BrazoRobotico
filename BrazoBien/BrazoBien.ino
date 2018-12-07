@@ -90,12 +90,12 @@ void loop() {
       //Colocar en el arreglo la variable data
       posiciones[cont] = data;
       cont++;
-
-      if (data == 800) {
+      
+      if (data == 800) { //Si se recibe el 800 quiere decir que ejecutara la rutina creada, al puerto serial llega el 800 más los datos de la rutina
         registro = true;
         cont = 0;
       }
-
+      
       if (registro == true) {
         if (cont == 5) {
           digitalWrite(ledVerde, LOW);
@@ -116,7 +116,7 @@ void loop() {
         abortar = true;
       }
 
-      if (data == 700) { //identificador para hacer una rutina de pasos
+      if (data == 700) {//Si se recibe el 800 quiere decir que ejecutara la rutina por default
         mover = true;
 
       }
@@ -228,23 +228,23 @@ void Emergencia() {
 
 //*******************************METODO PARA GUARDAR EN LA MEMORIA EEPROM ***********************************
 void guardaEEPROM() {
-  //    for(int i=0; i <= sizeof(posiciones);i++){ //guardar en la memoria EEPROM las posiciones del brazo robótico
-  //     // EEPROM.put(direccionMemoria,posiciones[i]);
-  //     EEPROM.update(direccionMemoria,posiciones[i]);
-  //     direccionMemoria++;
-  //    }
-  //    direccionMemoria=0;//reiniciamos índice
+      for(int i=0; i <= sizeof(posiciones);i++){ //guardar en la memoria EEPROM las posiciones del brazo robótico
+       // EEPROM.put(direccionMemoria,posiciones[i]);
+       EEPROM.update(direccionMemoria,posiciones[i]);
+       direccionMemoria++;
+      }
+      direccionMemoria=0;
 }
 
 //***********************************METODO PARA CARGAR LO QUE HAY EN LA MEMORIA EEPROM**************************
 void cargarEEPROM() {
-  //
-  //   direccionMemoria = sizeof(posiciones);
-  //    for(int i = direccion-1 ;i >= 0 ;i--){
-  //       EEPROM.get(direccionMemoria,dato);
-  //      posiciones[i]=dato;
-  //  }
-  //
+  
+     direccionMemoria = sizeof(posiciones);
+      for(int i = direccion-1 ;i >= 0 ;i--){
+         EEPROM.get(direccionMemoria,dato);
+        posiciones[i]=dato;
+    }
+  
 
 }
 
@@ -307,32 +307,32 @@ void apagado() {
 //*******************************************************METODO PARA EJECUTAR RUTINA PARA TOMAR UN OBJETO Y MOVERLO DE LUGAR*************************
 void tomarObjeto() {
   servos[3].write(90);
-  delay(800);
+  delay(500);
   servos[2].write(90);
-  delay(800);
+  delay(500);
   servos[1].write(90);
-  delay(800);
+  delay(500);
   servos[0].write(90);
-  delay(800);
+  delay(500);
 
   servos[3].write(138);
-  delay(800);
+  delay(500);
   servos[2].write(60);
-  delay(800);
+  delay(500);
   servos[1].write(90);
-  delay(800);
+  delay(500);
   servos[0].write(50);
-  delay(800);
+  delay(500);
 
 
   servos[3].write(90);
-  delay(800);
+  delay(500);
   servos[2].write(90);
-  delay(800);
+  delay(500);
   servos[1].write(90);
-  delay(800);
+  delay(500);
   servos[0].write(50);
-  delay(800);
+  delay(500);
 
   dato_rx = 180;
   dato_rx *= 1.42222222222; // Ajuste de 512 vueltas a los 360 grados
@@ -348,23 +348,23 @@ void tomarObjeto() {
   //gira180
 
   servos[3].write(138);
-  delay(800);
+  delay(500);
   servos[2].write(60);
-  delay(800);
+  delay(500);
   servos[1].write(90);
-  delay(800);
+  delay(500);
   servos[0].write(180);
-  delay(800);
+  delay(500);
 
 
   servos[3].write(90);
-  delay(800);
+  delay(500);
   servos[2].write(90);
-  delay(800);
+  delay(500);
   servos[1].write(90);
-  delay(800);
+  delay(500);
   servos[0].write(90);
-  delay(800);
+  delay(500);
 
   dato_rx = 0;
   dato_rx *= 1.42222222222; // Ajuste de 512 vueltas a los 360 grados
