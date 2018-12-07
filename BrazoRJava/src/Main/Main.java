@@ -23,7 +23,6 @@ public class Main {
         Brazo obj = new Brazo();
         obj.setVisible(true);
         obj.setSize(1500,1000);
-//        obj.setResizable(false);
         obj.setLocation(0,0);
         obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
