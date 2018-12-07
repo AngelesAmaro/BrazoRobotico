@@ -9,11 +9,11 @@ LiquidCrystal lcd(30, 28, 32, 22, 24, 26);
 #include <Stepper.h>
 
 //Variables para mover el motor a pasos 
-int pasos=100;
+int pasos=2048;
 int pasosPorLectura=5;
 int leer;
 int rotacion;
-Stepper stepper(pasos,8,9,10,11);
+Stepper stepper(pasos,8,10,9,11);
 int velocidadMotor;
 
 //Servos
@@ -39,9 +39,10 @@ int servoCodoPin = 4;
 int servoPinzaPin = 12;
 int servoMunecaPin = 3;
 int boton1 = 52;
+int boton2 = 50;
 
-//int val;
-int buttonState = 0;
+int buttonState1 = 0;
+int buttonState2 = 0;
 
 void setup()
 {
@@ -57,7 +58,9 @@ void setup()
   munecaServo.attach(servoMunecaPin);
   
   pinMode(boton1, INPUT_PULLUP); 
+  pinMode(boton2, INPUT_PULLUP);
   lcd.begin(16, 2);
+
   lcd.setCursor(0, 0);
   lcd.print("BRAZO ROBOTICO  ");
   Serial.begin(9600);
@@ -93,11 +96,12 @@ void loop()
 
   delay(50);
   //Boton Joystick 1
-  buttonState = digitalRead(boton1);
-  if (buttonState == HIGH) {     
+  buttonState1 = digitalRead(boton1);
+  buttonState2 = digitalRead(boton2);
+  if (buttonState1 == HIGH) {     
     pinzaServo.write(90); 
-  } 
-  else {
+  }
+  if (buttonState2 == HIGH) {
     pinzaServo.write(0); 
   }
   
