@@ -33,24 +33,37 @@ programa (aunque este no se encuentre conectado a la aplicación).<br>
     
 **Proposito.**
 <br>
-  El proposito de dicha práctica ha sido el de ser capaces de utilizar de manera satisfactoria la unión de distintos tipos de <br>
-  software con Arduino UNO para poder llevar a la realidad unos proyectos, aunque simples, más completos<br><br>
+  El proposito de dicha fue el ser capaces de usar nuestros conocimientos y las herramientas que conocemos para  <br>
+  controlar un brazo robotico con la ayuda de una interfaz que permitieran la comunicación via Serial.<br><br>
 	
 **Entorno.**
 <br>
   Para el desarrollo de esta practica se utilizo el sistema operativo Elementary OS 0.4.14, complementandose con windows 10, <br>
-  con apoyo de IDE ARDUINO, Fritzing 0.9.1 para la simulacion del circuito, Netbeans para el envio de mensajes con Java.<br>
+  con apoyo de IDE ARDUINO, Netbeans para el envio de mensajes con Java y la libreria PanamaHitek_Arduino-3.0.0.<br>
 	<br>
 **Materiales usados.**
 <br>
-	-Arduino UNO <br>
+	-Arduino MEGA <br>
 	-Cable USB <br>
 	-Placa de prototipado o protoboard <br>
 	-Cables<br>
         -Brazo robotico<br>
         -micro servomotor 9g<br>
         -motor a pasos<br>
+	-Pantalla LCD 16x2<br>
+	-LEDS<br>
+	-Joystick<br>
+	-Potenciometro<br>
+	-Buzzer
+	-Push Button
 	<br><br>
 	
 **Procedimiento.**
 <br>
+Para desarrollar el proyecto creamos la interfaz en Java con ayuda de la libreria antes mencionada, se usaron JSpinner para mandar el <br>
+Numero de grados a arduino, en este caso se mandaron separados por comas los datos de los cinco movimientos que haria
+<br>
+Se implementarios botones para guardar los movimientos, crear rutinas y ejecutar una rutina por default<br>
+En arduino se uso la memoria EEPROM para guardar los movimientos y ejecutar las rutinas, se usaron distintos métodos para detectar<br>
+que acción debia realizar el brazo de acuerdo al botón elegido<br>
+Como funcionalidad extra se implementaron 2 Joystick para manejar el brazo de formas más sencilla<br><br>
