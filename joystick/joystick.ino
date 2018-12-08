@@ -13,6 +13,7 @@ int pasos=2048;
 int pasosPorLectura=5;
 int leer;
 int rotacion;
+//pines del motor
 Stepper stepper(pasos,8,10,9,11);
 int velocidadMotor;
 
