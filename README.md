@@ -29,7 +29,7 @@ programa (aunque este no se encuentre conectado a la aplicación).<br>
     *El codo hará que el brazo avance o retroceda.<br>
     *La muñeca hará que gire la pinza.<br>
     *La garra o pinza funciona abriendo o cerrándose para agarrar las cosas.<br>
-    <br><br><br>
+    <br><br>
     
 **Proposito.**
 <br>
@@ -54,8 +54,8 @@ programa (aunque este no se encuentre conectado a la aplicación).<br>
 	-LEDS<br>
 	-Joystick<br>
 	-Potenciometro<br>
-	-Buzzer
-	-Push Button
+	-Buzzer<br>
+	-Push Button<br>
 	<br><br>
 	
 **Procedimiento.**
@@ -67,3 +67,7 @@ Se implementarios botones para guardar los movimientos, crear rutinas y ejecutar
 En arduino se uso la memoria EEPROM para guardar los movimientos y ejecutar las rutinas, se usaron distintos métodos para detectar<br>
 que acción debia realizar el brazo de acuerdo al botón elegido<br>
 Como funcionalidad extra se implementaron 2 Joystick para manejar el brazo de formas más sencilla<br><br>
+
+**Imágenes del brazo**
+![Brazo Robotico](https://github.com/Sandra14tb/BrazoRobotico/blob/master/brazo.jpg?raw=true)
+![Brazo Robotico](https://github.com/Sandra14tb/BrazoRobotico/blob/master/brazo2.jpg?raw=true)
