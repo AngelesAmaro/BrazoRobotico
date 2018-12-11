@@ -28,7 +28,7 @@ programa (aunque este no se encuentre conectado a la aplicación).<br>
     *El hombro es el responsable de levantar o bajar el brazo verticalmente.<br>
     *El codo hará que el brazo avance o retroceda.<br>
     *La muñeca hará que gire la pinza.<br>
-    *La garra o pinza funciona abriendo o cerrándose para agarrar las cosas.<br>
+    *La garra o pinza funciona abriendo o cerrándose para agarrar las cosas. <br>
     <br><br>
     
 **Proposito.**
